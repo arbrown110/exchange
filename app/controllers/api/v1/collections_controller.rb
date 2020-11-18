@@ -15,15 +15,16 @@ class Api::V1::CollectionsController < ApplicationController
     def create 
         @collection = Collection.new(collection_params)
         if @collection.save
-            render json: @collection, status :accepted
+            render json: @collection, status: :created, location: @collection
         else
-            render json: @collection.errors, status :unprocessable_entity
+            render json: @collection.errors, status: :unprocessable_entity
+        end
     end
 
     def destroy
         @collection = Collection.new(collection_params)
         @collection.destroy
-
+    end
     private
 
     def collection_params
